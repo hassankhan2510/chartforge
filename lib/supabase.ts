@@ -34,7 +34,7 @@ export async function saveJournalEntry(entry: {
   if (!supabase) return null;
 
   const { data, error } = await supabase
-    .schema('public')
+    .schema('chartforge')
     .from('journal_entries')
     .insert([entry])
     .select();
@@ -54,7 +54,7 @@ export async function clearJournal(chatId: string) {
   if (!supabase) return false;
 
   const { error } = await supabase
-    .schema('public')
+    .schema('chartforge')
     .from('journal_entries')
     .delete()
     .eq('chat_id', chatId);
@@ -75,7 +75,7 @@ export async function getPairSpecificLessons(pair: string, limit: number = 3) {
   if (!supabase) return "";
 
   const { data, error } = await supabase
-    .schema('public')
+    .schema('chartforge')
     .from('journal_entries')
     .select('consensus, action, explanation, timestamp')
     .eq('pair', pair)
@@ -96,7 +96,7 @@ export async function getRecentJournals(chatId: string, limit: number = 5) {
   if (!supabase) return [];
 
   const { data, error } = await supabase
-    .schema('public')
+    .schema('chartforge')
     .from('journal_entries')
     .select('*')
     .eq('chat_id', chatId)
