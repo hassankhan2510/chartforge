@@ -52,7 +52,7 @@ export default function TerminalPage() {
           pair,
           style,
           system,
-          images: [base64Image, base64Image, base64Image]
+          images: [] // Bypassing html2canvas due to iframe CORS limits. Backend will auto-generate native charts from Yahoo Finance.
         })
       });
 
