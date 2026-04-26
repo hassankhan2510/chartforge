@@ -221,6 +221,7 @@ export async function masterSynthesis(
   style: TradingStyle,
   sessionInfo: SessionInfo,
   macroContext: MacroContext,
+  marketConfluence: any,
   mechanicalData: MechanicalData,
   visionAnalysis: string,
   system: string = 'standard'
@@ -239,6 +240,9 @@ Volatility Expectation: ${sessionInfo.volatilityExpectation}
 === MACRO & FUNDAMENTAL CONTEXT ===
 DXY/USD Bias: ${macroContext.dxyBias}
 Risk Sentiment: ${macroContext.riskSentiment}
+Detailed Macro Context: ${marketConfluence?.dxy?.bias} (Price: ${marketConfluence?.dxy?.price})
+Market Volatility (VIX): ${marketConfluence?.vix?.price} | Sentiment: ${marketConfluence?.vix?.sentiment}
+Whale Positioning: ${marketConfluence?.whale_data}
 Key Events Today: 
 ${macroContext.keyEvents.map(e => `  - ${e}`).join('\n')}
 

@@ -81,8 +81,13 @@ export async function POST(request: NextRequest): Promise<NextResponse<AnalyzeRe
     // ============================================
     console.log('[Step 1/4] Detecting session & macro context...');
     const pairFullConfig = PAIRS[tradingPair];
-    const sessionInfo = getSessionInfo(pairFullConfig.category);
-    const macroContext = await getMacroContext(tradingPair, pairFullConfig.category);
+    const { getMarketConfluence } = await import('@/lib/confluence');
+    
+    const [sessionInfo, macroContext, marketConfluence] = await Promise.all([
+      getSessionInfo(pairFullConfig.category),
+      getMacroContext(tradingPair, pairFullConfig.category),
+      getMarketConfluence()
+    ]);
 
     if (sessionInfo.currentSession === 'Weekend' && pairFullConfig.category !== 'crypto') {
       console.warn(`[ChartForge AI] Aborting analysis: ${pair} market is closed for the weekend.`);
@@ -118,13 +123,16 @@ export async function POST(request: NextRequest): Promise<NextResponse<AnalyzeRe
     // STEP 4: Multi-Agent Debate & Synthesis (Gemini/Groq)
     // ============================================
     console.log('[Step 4/4] Running multi-agent debate and synthesis...');
+    const system = body.system || 'standard';
     const { agents, synthesized } = await masterSynthesis(
       pair,
       tradingStyle,
       sessionInfo,
       macroContext,
+      marketConfluence,
       mechanicalData,
-      visionAnalysis
+      visionAnalysis,
+      system
     );
 
     // ============================================

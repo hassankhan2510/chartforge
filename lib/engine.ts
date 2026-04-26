@@ -5,6 +5,7 @@ import { analyzeCharts, masterSynthesis } from './gemini';
 import { TradingPair, TradingStyle, SynthesizedReport } from './types';
 import { PAIRS, getStyleConfig } from './constants';
 import { saveJournalEntry } from './supabase';
+import { getMarketConfluence } from './confluence';
 
 /**
  * ChartForge AI — Standalone Execution Engine
@@ -32,9 +33,10 @@ export async function executeAnalysis(params: {
     // 2. Fetch Macro & Session Context
     console.log(`[Engine] Starting analysis for ${pair} using ${style} (${system})...`);
     const category = pairConfig.category === 'psx' ? 'psx' : 'forex';
-    const [sessionInfo, macroContext] = await Promise.all([
+    const [sessionInfo, macroContext, marketConfluence] = await Promise.all([
       getSessionInfo(category),
-      getMacroContext(pair as TradingPair, category)
+      getMacroContext(pair as TradingPair, category),
+      getMarketConfluence()
     ]);
 
     // 3. Generate Charts (On-demand scraping)
@@ -68,6 +70,7 @@ export async function executeAnalysis(params: {
       style as TradingStyle,
       sessionInfo,
       macroContext,
+      marketConfluence,
       mechanicalData,
       visionOutput,
       system

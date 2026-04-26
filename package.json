@@ -11,6 +11,8 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.104.1",
+    "axios": "^1.15.2",
+    "cheerio": "^1.2.0",
     "groq-sdk": "^1.1.2",
     "html2canvas": "^1.4.1",
     "lucide-react": "^1.8.0",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/axios": "^0.9.36",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
