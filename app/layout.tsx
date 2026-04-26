@@ -40,7 +40,21 @@ export default function RootLayout({
                 Chart<span className="text-gradient">Forge</span> AI
               </span>
             </a>
-            <span className="navbar-badge">v1.0</span>
+            <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+              <a href="/terminal" className="mono" style={{ 
+                textDecoration: 'none', 
+                color: 'var(--accent-blue)', 
+                fontSize: '0.8rem', 
+                fontWeight: 700,
+                border: '1px solid var(--border-medium)',
+                padding: '0.4rem 1rem',
+                borderRadius: '4px',
+                background: 'rgba(59, 130, 246, 0.05)'
+              }}>
+                {">"} LAUNCH_TERMINAL
+              </a>
+              <span className="navbar-badge">v4.0</span>
+            </div>
           </div>
         </nav>
 

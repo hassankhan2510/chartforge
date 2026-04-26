@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'next/navigation';
-import { MultiChartGrid } from '../components/MultiChartGrid';
+import { MultiChartGrid } from './components/MultiChartGrid';
 import { PAIRS, getStyleConfig } from '@/lib/constants';
 import { TradingStyle, AnalyzeResponse } from '@/lib/types';
 import html2canvas from 'html2canvas';
