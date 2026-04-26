@@ -101,92 +101,97 @@ export default function HomePage() {
             maxWidth: "700px",
             margin: "0 auto 2.5rem",
             lineHeight: 1.6,
+            opacity: 0.8
+          }}
+        >
+          {">"} ON-DEMAND MULTI-AGENT QUANTITATIVE ANALYSIS VIA TELEGRAM. 
+          <br />
+          {">"} EXECUTING SMC, WYCKOFF, AND PRICE-ACTION PROTOCOLS.
+        </p>
 
-      {/* How it works */}
-      <div
-        className="animate-fade-in animate-delay-5"
-        style={{
-          marginTop: "4rem",
-          textAlign: "center",
-        }}
-      >
-        <h3
-          style={{
-            fontSize: "1rem",
-            fontWeight: 600,
-            color: "var(--text-secondary)",
-            marginBottom: "2rem",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-          }}
-        >
-          How It Works
-        </h3>
-        <div
-          style={{
-            display: "flex",
-            gap: "2rem",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            maxWidth: "800px",
-            margin: "0 auto",
-          }}
-        >
-          {[
-            { step: "01", title: "Select Pair", desc: "Choose target instrument", icon: "01" },
-            { step: "02", title: "Pick Style", desc: "Define holding horizon", icon: "02" },
-            { step: "03", title: "Upload Charts", desc: "Execute multi-timeframe", icon: "03" },
-            { step: "04", title: "Get Analysis", desc: "Render prop-desk audit", icon: "04" },
-          ].map((item) => (
-            <div
-              key={item.step}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "0.5rem",
-                minWidth: "140px",
-              }}
-            >
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  borderRadius: "12px",
-                  background: "var(--bg-card)",
-                  border: "1px solid var(--border-subtle)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1.25rem",
-                }}
-              >
-                {item.icon}
-              </div>
-              <div
-                style={{
-                  fontSize: "0.6rem",
-                  color: "var(--accent-blue)",
-                  fontWeight: 700,
-                  letterSpacing: "0.15em",
-                }}
-              >
-                STEP {item.step}
-              </div>
-              <div
-                style={{
-                  fontSize: "0.85rem",
-                  fontWeight: 600,
-                  color: "var(--text-primary)",
-                }}
-              >
-                {item.title}
-              </div>
-              <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
-                {item.desc}
-              </div>
-            </div>
-          ))}
+        <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap", marginBottom: '3rem' }}>
+           <a 
+            href="https://t.me/ChartForgeBot" 
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: "1rem 2.5rem",
+              background: "var(--accent-blue)",
+              color: "white",
+              borderRadius: "4px",
+              textDecoration: "none",
+              fontWeight: 800,
+              fontSize: "1rem",
+              boxShadow: "0 0 30px rgba(59, 130, 246, 0.4)",
+              transition: "all 0.2s ease",
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em'
+            }}
+            className="hover-lift"
+          >
+            OPEN TELEGRAM TERMINAL
+          </a>
+          
+          <Link 
+            href="/journal" 
+            style={{
+              padding: "1rem 2.5rem",
+              background: "transparent",
+              color: "var(--text-primary)",
+              border: "1px solid var(--border-medium)",
+              borderRadius: "4px",
+              textDecoration: "none",
+              fontWeight: 700,
+              fontSize: "1rem",
+              transition: "all 0.2s ease",
+              textTransform: 'uppercase'
+            }}
+            className="hover-lift"
+          >
+            VIEW LIVE JOURNAL
+          </Link>
+        </div>
+      </div>
+
+      {/* Feature Grid */}
+      <div className="animate-fade-in animate-delay-1" style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+        gap: '1.5rem', 
+        marginBottom: '5rem',
+        position: 'relative',
+        zIndex: 2
+      }}>
+        <div className="glass-card" style={{ padding: '2rem', borderLeft: '4px solid var(--accent-purple)' }}>
+            <h3 style={{ marginBottom: '1rem', color: 'var(--accent-purple)' }}>[01] THE TELEGRAM BOT</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                Your private quant analyst in your pocket. Send charts or request data-driven setups anytime, anywhere. Restricted to your specific ID for total privacy.
+            </p>
+        </div>
+        <div className="glass-card" style={{ padding: '2rem', borderLeft: '4px solid var(--accent-green)' }}>
+            <h3 style={{ marginBottom: '1rem', color: 'var(--accent-green)' }}>[02] MULTI-SYSTEM ENGINE</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                Switch between <strong>SMC</strong>, <strong>Wyckoff</strong>, or <strong>Price Action</strong> logic on the fly. The engine re-configures its neural debate based on your command.
+            </p>
+        </div>
+        <div className="glass-card" style={{ padding: '2rem', borderLeft: '4px solid var(--accent-amber)' }}>
+            <h3 style={{ marginBottom: '1rem', color: 'var(--accent-amber)' }}>[03] REFLEXIVE JOURNALING</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                Every analysis is automatically archived in a private Supabase schema. Use the web journal to audit past calls and improve your win-rate.
+            </p>
+        </div>
+      </div>
+
+      {/* TradingView Integrated Dashboard */}
+      <div className="animate-fade-in animate-delay-2" style={{ position: 'relative', zIndex: 2 }}>
+        <div style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <h2 className="mono" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>{">"} LIVE_MARKET_FEED</h2>
+            <div style={{ height: '1px', flex: 1, background: 'var(--border-medium)' }}></div>
+            <span className="badge badge-green">LIVE STREAM</span>
+        </div>
+        
+        <div className="glass-card" style={{ padding: '2px', overflow: 'hidden' }}>
+            <div ref={container} className="tradingview-widget-container"></div>
         </div>
       </div>
     </div>
