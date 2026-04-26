@@ -4,7 +4,7 @@ import { generateChartImageBase64 } from './charts';
 import { analyzeCharts, masterSynthesis } from './gemini';
 import { TradingPair, TradingStyle, SynthesizedReport } from './types';
 import { PAIRS, getStyleConfig } from './constants';
-import { saveJournalEntry } from './supabase';
+import { saveJournalEntry, getPairSpecificLessons } from './supabase';
 import { getMarketConfluence } from './confluence';
 
 /**
@@ -30,13 +30,14 @@ export async function executeAnalysis(params: {
       throw new Error(`Invalid configuration: ${pair} / ${style}`);
     }
 
-    // 2. Fetch Macro & Session Context
+    // 2. Fetch Macro & Session Context + Reflexive History
     console.log(`[Engine] Starting analysis for ${pair} using ${style} (${system})...`);
     const category = pairConfig.category === 'psx' ? 'psx' : 'forex';
-    const [sessionInfo, macroContext, marketConfluence] = await Promise.all([
+    const [sessionInfo, macroContext, marketConfluence, reflexiveHistory] = await Promise.all([
       getSessionInfo(category),
       getMacroContext(pair as TradingPair, category),
-      getMarketConfluence()
+      getMarketConfluence(),
+      getPairSpecificLessons(pair)
     ]);
 
     // 3. Generate Charts (On-demand scraping)
@@ -70,6 +71,7 @@ export async function executeAnalysis(params: {
       style as TradingStyle,
       sessionInfo,
       macroContext,
+      reflexiveHistory,
       marketConfluence,
       mechanicalData,
       visionOutput,

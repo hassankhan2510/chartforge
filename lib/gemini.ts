@@ -221,6 +221,7 @@ export async function masterSynthesis(
   style: TradingStyle,
   sessionInfo: SessionInfo,
   macroContext: MacroContext,
+  reflexiveHistory: string,
   marketConfluence: any,
   mechanicalData: MechanicalData,
   visionAnalysis: string,
@@ -236,6 +237,9 @@ Current Session: ${sessionInfo.currentSession}
 PKT Time: ${sessionInfo.pktTime}
 Session Details: ${sessionInfo.sessionDescription}
 Volatility Expectation: ${sessionInfo.volatilityExpectation}
+
+=== REFLEXIVE LEARNING (PAST LESSONS) ===
+${reflexiveHistory}
 
 === MACRO & FUNDAMENTAL CONTEXT ===
 DXY/USD Bias: ${macroContext.dxyBias}

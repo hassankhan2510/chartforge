@@ -80,13 +80,19 @@ export async function POST(request: NextRequest): Promise<NextResponse<AnalyzeRe
     // STEP 1: Session & Fundamental Engine (No LLM)
     // ============================================
     console.log('[Step 1/4] Detecting session & macro context...');
+    // ============================================
+    // STEP 1: Session & Fundamental Engine (No LLM)
+    // ============================================
+    console.log('[Step 1/4] Detecting session & macro context...');
     const pairFullConfig = PAIRS[tradingPair];
     const { getMarketConfluence } = await import('@/lib/confluence');
+    const { getPairSpecificLessons } = await import('@/lib/supabase');
     
-    const [sessionInfo, macroContext, marketConfluence] = await Promise.all([
+    const [sessionInfo, macroContext, marketConfluence, reflexiveHistory] = await Promise.all([
       getSessionInfo(pairFullConfig.category),
       getMacroContext(tradingPair, pairFullConfig.category),
-      getMarketConfluence()
+      getMarketConfluence(),
+      getPairSpecificLessons(pair)
     ]);
 
     if (sessionInfo.currentSession === 'Weekend' && pairFullConfig.category !== 'crypto') {
@@ -129,6 +135,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<AnalyzeRe
       tradingStyle,
       sessionInfo,
       macroContext,
+      reflexiveHistory,
       marketConfluence,
       mechanicalData,
       visionAnalysis,

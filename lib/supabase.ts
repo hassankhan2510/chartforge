@@ -68,23 +68,24 @@ export async function clearJournal(chatId: string) {
 }
 
 /**
- * Gets recent journals for a user.
+ * Gets recent lessons for a specific pair.
+ * Used for "Reflexive Learning" so the AI doesn't repeat mistakes.
  */
-export async function getRecentJournals(chatId: string, limit: number = 5) {
-  if (!supabase) return [];
+export async function getPairSpecificLessons(pair: string, limit: number = 3) {
+  if (!supabase) return "";
 
   const { data, error } = await supabase
     .schema('chartforge')
     .from('journal_entries')
-    .select('*')
-    .eq('chat_id', chatId)
+    .select('consensus, action, explanation, timestamp')
+    .eq('pair', pair)
     .order('timestamp', { ascending: false })
     .limit(limit);
 
-  if (error) {
-    console.error('[Supabase] Error fetching journals:', error);
-    return [];
-  }
+  if (error || !data || data.length === 0) return "No recent history for this pair. Proceed with fresh logic.";
 
-  return data || [];
+  return data.map(d => {
+    return `[${d.timestamp}] VERDICT: ${d.consensus} | ACTION: ${d.action}\nLESSON: ${d.explanation.substring(0, 200)}...`;
+  }).join('\n\n');
 }
+
