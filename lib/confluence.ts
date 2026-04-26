@@ -17,8 +17,8 @@ export async function getMarketConfluence() {
       axios.get(vix_url, { headers: { 'User-Agent': 'Mozilla/5.0' } })
     ]);
 
-    const dxy_price = parseYahooPrice(dxy_res.data);
-    const vix_price = parseYahooPrice(vix_res.data);
+    const dxy_price = parseYahooPrice(dxy_res.data as string);
+    const vix_price = parseYahooPrice(vix_res.data as string);
 
     // 2. Fetch "Whale" data (Sentiment Proxy)
     // We use a ratio of High-Impact News to Gauging volatility

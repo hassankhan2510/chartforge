@@ -130,6 +130,18 @@ export const PAIRS: Record<TradingPair, PairConfig> = {
     pipValue: 0.01,
     description: 'Top Islamic Bank. Driven by SBP interest rates and Shariah inflows.',
   },
+  ETHUSD: {
+    id: 'ETHUSD',
+    name: 'ETH/USD',
+    fullName: 'Ethereum / US Dollar',
+    icon: 'ETH',
+    color: '#3B82F6',
+    gradient: 'from-blue-500 to-blue-700',
+    yahooSymbol: 'ETH-USD',
+    category: 'crypto',
+    pipValue: 0.01,
+    description: 'Ethereum — The world layer 2 smart contract proxy.',
+  },
 };
 
 // ============================================
@@ -206,7 +218,7 @@ export const PSX_STYLES: Record<string, StyleConfig> = {
 // Helper Functions
 // ============================================
 
-export const PAIR_LIST: TradingPair[] = ['EURUSD', 'GBPUSD', 'XAUUSD', 'BTCUSD', 'USOIL', 'SYS', 'HUBC', 'LUCK', 'OGDC', 'MEBL'];
+export const PAIR_LIST: TradingPair[] = ['EURUSD', 'GBPUSD', 'XAUUSD', 'BTCUSD', 'ETHUSD', 'USOIL', 'SYS', 'HUBC', 'LUCK', 'OGDC', 'MEBL'];
 
 export function getStylesForCategory(category: string): Record<string, StyleConfig> {
   return category === 'psx' ? PSX_STYLES : FX_STYLES;

@@ -185,7 +185,7 @@ Analyze ALL 3 charts above in the exact order: Chart 1 (${timeframes[0]}), Chart
 // ============================================
 
 // Helper function for individual agent LLM execution
-async function runLLM(prompt: string, agentName: string): Promise<string> {
+export async function runLLM(prompt: string, agentName: string): Promise<string> {
   if (process.env.GROQ_API_KEY) {
     try {
       // console.log(`  [AI Routing] Running ${agentName} via Groq...`);

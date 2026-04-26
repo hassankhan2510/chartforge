@@ -7,7 +7,7 @@
 // Trading Pair & Style Types
 // ============================================
 
-export type TradingPair = 'EURUSD' | 'GBPUSD' | 'XAUUSD' | 'BTCUSD' | 'USOIL' | 'SYS' | 'HUBC' | 'LUCK' | 'OGDC' | 'MEBL';
+export type TradingPair = 'EURUSD' | 'GBPUSD' | 'XAUUSD' | 'BTCUSD' | 'ETHUSD' | 'USOIL' | 'SYS' | 'HUBC' | 'LUCK' | 'OGDC' | 'MEBL';
 
 export type TradingStyle = 'scalp' | 'day' | 'swing' | 'psx_intraday' | 'psx_swing' | 'psx_dividend';
 
