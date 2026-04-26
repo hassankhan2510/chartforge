@@ -23,6 +23,17 @@ export async function POST(request: NextRequest) {
     const text = message.text.trim();
     const firstName = message.from.first_name;
 
+    // 0. Anti-Loop Mechanism (The Kill Switch)
+    // Telegram webhooks time out after 60s. Since our analysis takes ~80-100s, 
+    // Telegram assumes we failed and resends the exact same message.
+    // However, the original `message.date` stays the same. 
+    // By rejecting messages older than 60 seconds, we instantly kill the retry loop.
+    const currentUnixTime = Math.floor(Date.now() / 1000);
+    if (message.date && (currentUnixTime - message.date > 60)) {
+        console.log(`[Telegram] Anti-Loop triggered. Ignoring old message. Age: ${currentUnixTime - message.date}s`);
+        return NextResponse.json({ ok: true }); // Acknowledge to stop Telegram from retrying
+    }
+
     // 1. Security Check: Only allow authorized user
     const adminId = process.env.ADMIN_TELEGRAM_ID;
     if (adminId && chatId !== adminId) {
