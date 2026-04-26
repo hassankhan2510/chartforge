@@ -58,6 +58,44 @@
 }
 
 /* ============================================
+   Ghost Protocol (Stealth Mode) Override
+   ============================================ */
+
+.ghost {
+  --bg-primary: #000000;
+  --bg-secondary: #050505;
+  --bg-tertiary: #080808;
+  --bg-card: #000000;
+  --bg-glass: rgba(0, 0, 0, 0.98);
+  
+  --accent-blue: #00ff41; /* Classic Terminal Green */
+  --accent-purple: #00ff41;
+  --accent-cyan: #ffffff;
+  --accent-green: #00ff41;
+  --accent-amber: #00ff41;
+  
+  --text-primary: #00ff41;
+  --text-secondary: #008f11;
+  --text-muted: #003b00;
+  
+  --border-subtle: rgba(0, 255, 65, 0.1);
+  --border-medium: rgba(0, 255, 65, 0.3);
+  --border-accent: #00ff41;
+
+  --shadow-glow-blue: 0 0 20px rgba(0, 255, 65, 0.2);
+}
+
+.ghost .bg-grid {
+    background-image: 
+    linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.ghost .bg-glow { opacity: 0; }
+
+
+/* ============================================
    Base Styles
    ============================================ */
 
