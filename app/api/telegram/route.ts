@@ -145,6 +145,40 @@ ${synthesized.explanation}
         return NextResponse.json({ ok: true });
     }
 
+    // 3. Interactive Agent Q&A (Handle Replies)
+    if (message.reply_to_message && message.reply_to_message.text) {
+        const contextTrade = message.reply_to_message.text;
+        const userQuestion = text;
+
+        console.log(`[Telegram] Interactive Q&A triggered: ${userQuestion}`);
+        await sendTelegramMessage(chatId, "🤔 *CONSULTING THE DESK...* \nSynthesizing agents for a deeper explanation.");
+
+        const { runLLM } = await import('@/lib/gemini');
+        const defensePrompt = `
+        You are the Head of Research for a Quantitative Trading Desk.
+        
+        CONTEXT (A previous trade report we sent to the user):
+        ${contextTrade}
+        
+        USER QUESTION ABOUT THIS TRADE:
+        "${userQuestion}"
+        
+        TASK:
+        Look inside the context report. Explain the reasoning of our specialized agents (Trend, Contrarian, Price Action).
+        Provide a "Street Experienced" defense of the setup. 
+        If the user is asking "Why?", break down the specific liquidity zones or macro themes referenced.
+        Keep the tone professional, aggressive, and highly technical.
+        `;
+
+        try {
+            const explanation = await runLLM(defensePrompt, "Desk Consultant");
+            await sendTelegramMessage(chatId, `🧠 *DESK CONSULTANT RESPONSE:*\n\n${explanation}`);
+        } catch (err) {
+            await sendTelegramMessage(chatId, "❌ *CONSULTATION FAILED:* The agents are currently occupied. Try again in 60s.");
+        }
+        return NextResponse.json({ ok: true });
+    }
+
     return NextResponse.json({ ok: true });
 
   } catch (error) {
