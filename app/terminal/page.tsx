@@ -198,6 +198,18 @@ export default function TerminalPage() {
                     </div>
                 </div>
             )}
+
+            {result && !result.success && result.error && (
+                <div className="glass-card animate-fade-in" style={{ padding: '1.5rem', overflowY: 'auto', borderLeft: '2px solid #ef4444', background: 'var(--bg-card)' }}>
+                    <h2 className="mono" style={{ fontSize: '1rem', marginBottom: '1.5rem', color: '#ef4444' }}>{">"} SYSTEM_ABORT</h2>
+                    <div style={{ padding: '1rem', background: '#2a0a0a', border: '1px solid #5a1a1a', borderRadius: '4px' }}>
+                        <div className="mono" style={{ fontSize: '0.75rem', color: '#ef4444', marginBottom: '0.5rem' }}>// ERROR LOG</div>
+                        <p style={{ fontSize: '0.9rem', lineHeight: 1.6, color: '#ffaaaa' }}>
+                            {result.error}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
         </div>
 
