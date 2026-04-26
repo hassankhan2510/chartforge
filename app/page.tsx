@@ -1,203 +1,106 @@
 "use client";
 
 import Link from "next/link";
-import { PAIRS, PAIR_LIST } from "@/lib/constants";
+import { useEffect, useRef } from "react";
 
 /**
- * ChartForge AI — Homepage
- * Displays the 5 predefined trading pairs as premium cards.
- * User clicks a pair → navigate to style selection.
+ * ChartForge AI — Premium Hub
+ * Transformed into a high-end "Trading Terminal" landing page.
+ * Features: Telegram integration highlights + Live TradingView Dashboard.
  */
 export default function HomePage() {
+  const container = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Add TradingView Widget Script
+    const script = document.createElement("script");
+    script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+      "width": "100%",
+      "height": 450,
+      "symbolsGroups": [
+        {
+          "name": "Forex",
+          "originalName": "Forex",
+          "symbols": [
+            { "name": "FX:EURUSD", "displayName": "EUR/USD" },
+            { "name": "FX:GBPUSD", "displayName": "GBP/USD" },
+            { "name": "FX:USDJPY", "displayName": "USD/JPY" },
+            { "name": "OANDA:XAUUSD", "displayName": "Gold" }
+          ]
+        },
+        {
+          "name": "Indices / Commodities",
+          "symbols": [
+            { "name": "CAPITALCOM:US100", "displayName": "Nasdaq 100" },
+            { "name": "OANDA:US30USD", "displayName": "Dow 30" },
+            { "name": "TVC:USOIL", "displayName": "WTI Crude" }
+          ]
+        },
+        {
+          "name": "PSX (Pakistan)",
+          "symbols": [
+            { "name": "PSX:SYS", "displayName": "Systems Ltd" },
+            { "name": "PSX:HUBC", "displayName": "Hub Power" },
+            { "name": "PSX:OGDC", "displayName": "Oil & Gas Dev" }
+          ]
+        }
+      ],
+      "showSymbolLogo": true,
+      "isAnimatedSymbolLogo": true,
+      "colorTheme": "dark",
+      "smartTone": false,
+      "locale": "en",
+      "backgroundColor": "rgba(5, 5, 8, 1)"
+    });
+    
+    if (container.current) {
+        container.current.innerHTML = '';
+        container.current.appendChild(script);
+    }
+  }, []);
+
   return (
-    <div className="container" style={{ paddingTop: "2rem", paddingBottom: "4rem" }}>
-      {/* Hero Section */}
+    <div className="container" style={{ paddingTop: "6rem", paddingBottom: "4rem" }}>
+      
+      {/* Background Decorative Elements */}
+      <div className="bg-grid"></div>
+      <div className="bg-glow bg-glow-1"></div>
+      <div className="bg-glow bg-glow-2"></div>
+
+      {/* Hero Terminal Section */}
       <div
         className="animate-fade-in"
-        style={{ textAlign: "center", marginBottom: "3rem" }}
+        style={{ textAlign: "center", marginBottom: "4rem", position: "relative", zIndex: 2 }}
       >
+        <div style={{ marginBottom: "1.5rem" }}>
+          <span className="badge badge-blue" style={{ fontSize: '0.65rem', border: '1px solid var(--accent-blue)' }}>VERSION 4.0 — HEADLESS ENGINE</span>
+        </div>
+        
         <h1
           style={{
-            fontSize: "clamp(2rem, 5vw, 3.25rem)",
+            fontSize: "clamp(2.5rem, 8vw, 4.5rem)",
             fontWeight: 900,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.1,
-            marginBottom: "1rem",
+            letterSpacing: "-0.04em",
+            lineHeight: 0.95,
+            marginBottom: "1.5rem",
           }}
         >
-          Institutional-Grade
+          THE TRADING
           <br />
-          <span className="text-gradient">Chart Analysis</span>
+          <span className="text-gradient">SENTINEL.</span>
         </h1>
+
         <p
+          className="mono"
           style={{
-            fontSize: "1.05rem",
-            color: "var(--text-secondary)",
-            maxWidth: "600px",
-            margin: "0 auto 1.5rem",
+            fontSize: "0.95rem",
+            color: "var(--accent-cyan)",
+            maxWidth: "700px",
+            margin: "0 auto 2.5rem",
             lineHeight: 1.6,
-          }}
-        >
-          Upload your charts. Get prop-desk-level analysis powered by advanced
-          AI vision, quantitative models, and decades of trading logic.
-        </p>
-        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "1.5rem" }}>
-          <span className="badge badge-blue">SECURE INFERENCE</span>
-          <span className="badge badge-green">T-LATENCY: ~15s</span>
-          <span className="badge badge-amber">ENSEMBLE DEBATE PROTOCOL</span>
-        </div>
-        <Link 
-          href="/journal" 
-          style={{
-            display: "inline-block",
-            padding: "0.75rem 1.5rem",
-            background: "var(--bg-card)",
-            color: "var(--text-primary)",
-            border: "1px solid var(--border-medium)",
-            borderRadius: "8px",
-            textDecoration: "none",
-            fontWeight: 600,
-            fontSize: "0.9rem",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-            transition: "all 0.2s ease"
-          }}
-          className="hover-lift"
-        >
-          OPEN REFLEXIVE TRADE JOURNAL
-        </Link>
-      </div>
-
-      {/* Select Pair Label - Global Desk */}
-      <div
-        className="animate-fade-in animate-delay-1"
-        style={{
-          textAlign: "center",
-          marginBottom: "2rem",
-          marginTop: "3rem",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "1.1rem",
-            fontWeight: 600,
-            color: "var(--text-secondary)",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-          }}
-        >
-          [01] GLOBAL MACRO DESK
-        </h2>
-      </div>
-
-      {/* Global Pair Cards Grid */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "1.25rem",
-          maxWidth: "1100px",
-          margin: "0 auto",
-        }}
-      >
-        {PAIR_LIST.filter(p => PAIRS[p].category !== 'psx').map((pairId, index) => {
-          const pair = PAIRS[pairId];
-          const glowMap: Record<string, string> = {
-            EURUSD: "var(--shadow-glow-blue)",
-            GBPUSD: "var(--shadow-glow-purple)",
-            XAUUSD: "var(--shadow-glow-amber)",
-            BTCUSD: "0 0 30px rgba(249, 115, 22, 0.15)",
-            USOIL: "var(--shadow-glow-green)",
-          };
-
-          return (
-            <Link
-              key={pairId}
-              href={`/analyze/${pairId}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-              className={`animate-fade-in animate-delay-${index + 1}`}
-            >
-              <div
-                className="pair-card"
-                style={
-                  {
-                    "--card-border-color": pair.color,
-                    "--card-gradient": `linear-gradient(135deg, ${pair.color}, transparent)`,
-                    "--card-glow": glowMap[pairId],
-                  } as React.CSSProperties
-                }
-              >
-                <div className="pair-card-icon">{pair.icon}</div>
-                <div className="pair-card-name">{pair.name}</div>
-                <div className="pair-card-fullname">{pair.fullName}</div>
-                <div className="pair-card-description">{pair.description}</div>
-                <div className="pair-card-arrow">→</div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-
-      {/* Select Pair Label - PSX Desk */}
-       <div
-        className="animate-fade-in animate-delay-3"
-        style={{
-          textAlign: "center",
-          marginBottom: "2rem",
-          marginTop: "4rem",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "1.1rem",
-            fontWeight: 800,
-            color: "var(--accent-green)",
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-          }}
-        >
-          [02] LOCAL DOMESTIC EQUITIES (PSX)
-        </h2>
-      </div>
-
-      {/* PSX Pair Cards Grid */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "1.25rem",
-          maxWidth: "1100px",
-          margin: "0 auto",
-        }}
-      >
-        {PAIR_LIST.filter(p => PAIRS[p].category === 'psx').map((pairId, index) => {
-          const pair = PAIRS[pairId];
-          return (
-            <Link
-              key={pairId}
-              href={`/analyze/${pairId}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-              className={`animate-fade-in animate-delay-${index + 3}`}
-            >
-              <div
-                className="pair-card"
-                style={
-                  {
-                    "--card-border-color": pair.color,
-                    "--card-gradient": `linear-gradient(135deg, ${pair.color}, transparent)`,
-                    "--card-glow": `0 0 20px ${pair.color}20`,
-                  } as React.CSSProperties
-                }
-              >
-                <div className="pair-card-icon">{pair.icon}</div>
-                <div className="pair-card-name">{pair.name}</div>
-                <div className="pair-card-fullname">{pair.fullName}</div>
-                <div className="pair-card-description">{pair.description}</div>
-                <div className="pair-card-arrow">→</div>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
 
       {/* How it works */}
       <div
