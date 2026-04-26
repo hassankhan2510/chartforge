@@ -272,12 +272,15 @@ ${visionAnalysis.length > 4000 ? visionAnalysis.substring(0, 4000) + '...' : vis
 
   console.log('  [AI Routing] Spawning 3 parallel agents (Trend, Contrarian, Price Action)...');
 
-  // Spawn Agents in Parallel
-  const [trendResponse, contraResponse, paResponse] = await Promise.all([
-    runLLM(`${trendPrompt}\n\n${systemRules}\n\n${dataPayload}`, "Agent 1 (Trend)"),
-    runLLM(`${contraPrompt}\n\n${systemRules}\n\n${dataPayload}`, "Agent 2 (Contrarian)"),
-    runLLM(`${paPrompt}\n\n${systemRules}\n\n${dataPayload}`, "Agent 3 (Price Action)")
-  ]);
+  // Spawn Agents Sequentially to respect API Free Tier rate limits (prevent 429)
+  console.log('  [AI Routing] Spawning Agent 1 (Trend)...');
+  const trendResponse = await runLLM(`${trendPrompt}\n\n${systemRules}\n\n${dataPayload}`, "Agent 1 (Trend)");
+  
+  console.log('  [AI Routing] Spawning Agent 2 (Contrarian)...');
+  const contraResponse = await runLLM(`${contraPrompt}\n\n${systemRules}\n\n${dataPayload}`, "Agent 2 (Contrarian)");
+  
+  console.log('  [AI Routing] Spawning Agent 3 (Price Action)...');
+  const paResponse = await runLLM(`${paPrompt}\n\n${systemRules}\n\n${dataPayload}`, "Agent 3 (Price Action)");
 
   const agents: AgentResponse[] = [
     { agentName: 'Trend Follower', verdict: trendResponse },
