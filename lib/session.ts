@@ -99,8 +99,9 @@ function detectSession(utcHour: number, category: string = 'forex'): SessionWind
     }
   }
 
-  // Forex Weekend check (simplified — actual forex closes Friday 21:00 UTC, opens Sunday 21:00 UTC)
-  if (dayOfWeek === 6 || (dayOfWeek === 0 && utcHour < 21) || (dayOfWeek === 5 && utcHour >= 21)) {
+  // Forex Weekend check (CRYPTOS IGNORE THIS AS THEY TRADE 24/7)
+  if (category !== 'crypto') {
+    if (dayOfWeek === 6 || (dayOfWeek === 0 && utcHour < 21) || (dayOfWeek === 5 && utcHour >= 21)) {
     return {
       name: 'Weekend',
       startUTC: 0,
