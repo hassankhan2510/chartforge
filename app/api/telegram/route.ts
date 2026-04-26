@@ -31,8 +31,43 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. Command Router
-    if (text === '/start') {
-      await sendTelegramMessage(chatId, `Welcome back, *${firstName}*.\n\nI am the *ChartForge Institutional Terminal*.\nI am standing by for on-demand analysis.\n\n*Available Commands:*\n/analyze - Generate a setup\n/pairs - View tracked assets\n/journal - Recent setups\n/clear - Wipe database\n/help - Command syntax`);
+    if (text === '/start' || text === '/help') {
+      const helpMsg = `
+🏛 *CHARTFORGE INSTITUTIONAL TERMINAL*
+
+*Command Syntax:*
+\`/analyze [PAIR] [STYLE] [SYSTEM]\`
+
+*Step 1: Select Pair*
+View them with \`/pairs\` (e.g., EURUSD, SYS, XAUUSD)
+
+*Step 2: Select Style*
+• \`scalp\`, \`day\`, \`swing\` (Forex/Global)
+• \`psx_intraday\`, \`psx_swing\`, \`psx_dividend\` (PSX)
+
+*Step 3: Select System* (Optional)
+View strategies with \`/systems\`
+
+*Admin Commands:*
+/journal - View recent setups
+/clear - Wipe database
+/pairs - List all tracked assets
+`;
+      await sendTelegramMessage(chatId, helpMsg);
+      return NextResponse.json({ ok: true });
+    }
+
+    if (text === '/systems') {
+      const sysMsg = `
+🧠 *ADVANCED ANALYTICAL SYSTEMS*
+
+1. *standard*: Price Action Purist (S/R, Trendlines)
+2. *smc*: Smart Money Concepts (FVG, Order Blocks, Liquidity)
+3. *wyckoff*: Schematic Analysis (Accumulation/Distribution phases)
+
+*Usage:* \`/analyze XAUUSD day smc\`
+`;
+      await sendTelegramMessage(chatId, sysMsg);
       return NextResponse.json({ ok: true });
     }
 
