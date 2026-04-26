@@ -263,6 +263,12 @@ export async function getMacroContext(pair: TradingPair, category: string = 'for
       'Islamic banking deposits grow faster than conventional banks, offering a structural advantage.',
       'Government Sukuk issuances provide low-risk, high-yield avenues for Meezan.',
     ],
+    ETHUSD: [
+      'ETH has a high positive correlation with BTC — usually moves with higher volatility.',
+      'Ethereum deflationary mechanics (EIP-1559) and staking yields are key drivers.',
+      'Watch Layer 2 ecosystem growth and TVL trends in DeFi.',
+      'ETH/BTC ratio is a major sentiment indicator for altcoin cycles.',
+    ],
   };
 
   const dxyBias = getDxyBias();

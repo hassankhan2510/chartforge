@@ -89,3 +89,24 @@ export async function getPairSpecificLessons(pair: string, limit: number = 3) {
   }).join('\n\n');
 }
 
+/**
+ * Gets recent journals for a user.
+ */
+export async function getRecentJournals(chatId: string, limit: number = 5) {
+  if (!supabase) return [];
+
+  const { data, error } = await supabase
+    .schema('chartforge')
+    .from('journal_entries')
+    .select('*')
+    .eq('chat_id', chatId)
+    .order('timestamp', { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error('[Supabase] Error fetching journals:', error);
+    return [];
+  }
+
+  return data || [];
+}
